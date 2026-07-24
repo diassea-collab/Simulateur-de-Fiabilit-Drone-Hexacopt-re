@@ -624,7 +624,7 @@ elif st.session_state.page == "Comparaison & Sensibilité":
                 Le graphique de comparaison ci-dessus montre que les gains de fiabilité entre
                 <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> et <b style="color:#6b4c6e; font-size:1.25rem;">2-parmi-4</b> sont marginaux
                 (quelques centièmes de %), alors que le passage de <b style="color:#991b1b; font-size:1.25rem;">série</b> à
-                <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> apporte un gain massif. L'architecture 2-parmi-4
+                <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> apporte un gain massif. L'architecture 3-parmi-4
                 représente donc le meilleur compromis coût / fiabilité / faisabilité physique de vol.
             </p>
         </div>
