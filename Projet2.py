@@ -459,6 +459,24 @@ elif st.session_state.page == "Simulateur & Analyse":
                     <div class="metric-value" style="color: {color} !important;">{val}</div>
                 </div>
             """, unsafe_allow_html=True)
+            # 2. Calcul du total des pannes (x) et variables (y, z, t)
+        total_pannes = mc['echec_batt'] + mc['echec_carte'] + mc['echec_prop']
+        y = mc['echec_batt']
+        z = mc['echec_carte']
+        t_prop = mc['echec_prop']
+
+        # 3. Phrase d'explication récapitulative
+        st.markdown(f"""
+            <div class="feature-card" style="margin-top: 18px; padding: 18px; border-left: 5px solid #1d3557;">
+                <p style="margin: 0; font-size: 1.15rem; line-height: 1.6; color: #0f172a; font-weight: 600;">
+                    Sur un total de <b>{n_sims:,} missions</b> simulées, nous enregistrons 
+                    <b style="color:#b91c1c;">{total_pannes:,} pannes</b> : 
+                    <b style="color:#ee1d1d;">{y:,}</b> proviennent de la batterie, 
+                    <b style="color:#f16b17;">{z:,}</b> de la carte de vol et 
+                    <b style="color:#84cc16;">{t_prop:,}</b> de la propulsion.
+                </p>
+            </div>
+        """.replace(",", " "), unsafe_allow_html=True)
 
     with col_chart:
         st.markdown("<h3 style='font-size:1.6rem;'>📈 Courbes de fiabilité R(t)</h3>", unsafe_allow_html=True)
@@ -624,10 +642,11 @@ elif st.session_state.page == "Comparaison & Sensibilité":
                 Le graphique de comparaison ci-dessus montre que les gains de fiabilité entre
                 <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> et <b style="color:#6b4c6e; font-size:1.25rem;">2-parmi-4</b> sont marginaux
                 (quelques centièmes de %), alors que le passage de <b style="color:#991b1b; font-size:1.25rem;">série</b> à
-                <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> apporte un gain massif. L'architecture 3-parmi-4
+                <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> apporte un gain massif. L'architecture 2-parmi-4
                 représente donc le meilleur compromis coût / fiabilité / faisabilité physique de vol.
             </p>
         </div>
     """, unsafe_allow_html=True)
 
-   
+
+
