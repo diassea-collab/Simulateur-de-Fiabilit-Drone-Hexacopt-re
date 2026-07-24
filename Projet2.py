@@ -21,7 +21,7 @@ st.markdown("""
     /* BASE & TEXTE GENERAL - Très grands et très foncés */
     html, body, [class*="css"] { 
         font-family: 'Inter', sans-serif; 
-        font-size: 1.3rem !important; 
+        font-size: 1.2rem !important; 
         color: #0f172a !important; 
     }
     
@@ -51,7 +51,7 @@ st.markdown("""
     }
     section[data-testid="stSidebar"] * { 
         color: #0f172a !important; 
-        font-size: 1.2rem !important;
+        font-size: 1rem !important;
         font-weight: 600 !important;
     }
 
@@ -66,7 +66,7 @@ st.markdown("""
         margin-bottom: 30px;
     }
     .hero-title {
-        font-size: 4.0rem !important;
+        font-size: 3rem !important;
         font-weight: 800 !important;
         color: #085f67 !important;
         line-height: 1.15;
@@ -110,7 +110,7 @@ st.markdown("""
         height: 100%;
     }
     .card-title-lg { 
-        font-size: 1.7rem !important; 
+        font-size: 1.5rem !important; 
         font-weight: 800 !important; 
         margin-bottom: 12px; 
         color: #0f172a !important; 
@@ -141,7 +141,7 @@ st.markdown("""
     }
     .metric-value { 
         color: #0f172a !important; 
-        font-size: 3rem !important; 
+        font-size: 2.5rem !important; 
         font-weight: 800 !important; 
         margin-top: 6px; 
         font-family: 'Source Serif Pro', serif; 
@@ -283,7 +283,7 @@ if st.session_state.page == "Accueil":
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ---------- NAVIGATION CENTRALE ----------
-    st.markdown("<h3 style='text-align:center; color:#092540; font-weight:800; font-size:1.8rem;'>Navigation</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align:center; color:#092540; font-weight:800; font-size:1.5rem;'>Navigation</h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align:center; color:#1e293b; font-size:1.2rem; font-weight:600; margin-bottom:24px;'>Choisissez un module pour poursuivre l'étude.</p>", unsafe_allow_html=True)
 
     spacer_l, nav1, nav2, nav3, spacer_r = st.columns([0.5, 2, 2, 2, 0.5])
@@ -409,7 +409,7 @@ elif st.session_state.page == "Simulateur & Analyse":
     col_res, col_chart = st.columns([1, 1.25], gap="large")
 
     with col_res:
-        st.markdown("<h3 style='font-size:1.6rem;'>Résultats à T_mission</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='font-size:1.3rem;'>Résultats à T_mission</h3>", unsafe_allow_html=True)
         kpi1, kpi2 = st.columns(2)
         with kpi1:
             st.markdown(f"""
@@ -430,7 +430,7 @@ elif st.session_state.page == "Simulateur & Analyse":
             """, unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("<h3 style='font-size:1.6rem;'>Origine des pannes (simulation)</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='font-size:1.2rem;'>Origine des pannes (simulation)</h3>", unsafe_allow_html=True)
         p1, p2, p3 = st.columns(3)
         for col, label, val, color in [
             (p1, "Batterie", mc['echec_batt'], "#991b1b"),
@@ -445,7 +445,7 @@ elif st.session_state.page == "Simulateur & Analyse":
             """, unsafe_allow_html=True)
 
     with col_chart:
-        st.markdown("<h3 style='font-size:1.6rem;'>📈 Courbes de fiabilité R(t)</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='font-size:1.4rem;'>📈 Courbes de fiabilité R(t)</h3>", unsafe_allow_html=True)
         fig, ax = plt.subplots(figsize=(8, 5.2))
         t = np.linspace(0.1, max(150.0, t_mission * 1.5), 250)
         ax.plot(t, np.exp(-drone.lam_batt * t), "--", color="#991b1b", linewidth=2, label="Batterie")
@@ -466,7 +466,7 @@ elif st.session_state.page == "Comparaison & Sensibilité":
 
     st.markdown("""
         <div class="hero-wrap" style="padding:28px 36px;">
-            <div class="hero-title" style="font-size: 2.8rem !important;">Comparaison d'architectures & Sensibilité</div>
+            <div class="hero-title" style="font-size: 2.4rem !important;">Comparaison d'architectures & Sensibilité</div>
             <div class="hero-subtitle" style="font-size: 1.25rem !important;">
                 Comparez plusieurs stratégies de redondance k/n et étudiez l'impact des paramètres β et η
                 de la loi de Weibull sur la fiabilité du système de propulsion.
@@ -533,7 +533,7 @@ elif st.session_state.page == "Comparaison & Sensibilité":
     st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
     # ---------- BLOC 2 : ANALYSE DE SENSIBILITE ----------
-    st.markdown("<h2 style='font-size:3rem;'>Analyse de sensibilité sur β et η</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-size:2rem;'>Analyse de sensibilité sur β et η</h2>", unsafe_allow_html=True)
 
     col_beta, col_eta = st.columns(2, gap="large")
 
@@ -608,7 +608,7 @@ elif st.session_state.page == "Comparaison & Sensibilité":
                 Le graphique de comparaison ci-dessus montre que les gains de fiabilité entre
                 <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> et <b style="color:#6b4c6e; font-size:1.25rem;">2-parmi-4</b> sont marginaux
                 (quelques centièmes de %), alors que le passage de <b style="color:#991b1b; font-size:1.25rem;">série</b> à
-                <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> apporte un gain massif. L'architecture 3-parmi-4
+                <b style="color:#1d3557; font-size:1.25rem;">3-parmi-4</b> apporte un gain massif. L'architecture 2-parmi-4
                 représente donc le meilleur compromis coût / fiabilité / faisabilité physique de vol.
             </p>
         </div>
