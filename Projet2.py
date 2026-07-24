@@ -51,7 +51,7 @@ st.markdown("""
     }
     section[data-testid="stSidebar"] * { 
         color: #0f172a !important; 
-        font-size: 1rem !important;
+        font-size: 1.1rem !important;
         font-weight: 600 !important;
     }
 
@@ -66,7 +66,7 @@ st.markdown("""
         margin-bottom: 30px;
     }
     .hero-title {
-        font-size: 3rem !important;
+        font-size: 3.0rem !important;
         font-weight: 800 !important;
         color: #085f67 !important;
         line-height: 1.15;
@@ -80,7 +80,7 @@ st.markdown("""
         margin-bottom: 20px;
     }
     .hero-subtitle {
-        font-size: 1.5rem !important;
+        font-size: 1.3rem !important;
         font-weight: 600 !important;
         color: #1e293b !important;
         max-width: 850px;
@@ -110,7 +110,7 @@ st.markdown("""
         height: 100%;
     }
     .card-title-lg { 
-        font-size: 1.5rem !important; 
+        font-size: 1.7rem !important; 
         font-weight: 800 !important; 
         margin-bottom: 12px; 
         color: #0f172a !important; 
@@ -141,7 +141,7 @@ st.markdown("""
     }
     .metric-value { 
         color: #0f172a !important; 
-        font-size: 2.5rem !important; 
+        font-size: 2rem !important; 
         font-weight: 800 !important; 
         margin-top: 6px; 
         font-family: 'Source Serif Pro', serif; 
@@ -283,7 +283,7 @@ if st.session_state.page == "Accueil":
     st.markdown("<br>", unsafe_allow_html=True)
 
     # ---------- NAVIGATION CENTRALE ----------
-    st.markdown("<h3 style='text-align:center; color:#092540; font-weight:800; font-size:1.5rem;'>Navigation</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align:center; color:#092540; font-weight:800; font-size:1.8rem;'>Navigation</h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align:center; color:#1e293b; font-size:1.2rem; font-weight:600; margin-bottom:24px;'>Choisissez un module pour poursuivre l'étude.</p>", unsafe_allow_html=True)
 
     spacer_l, nav1, nav2, nav3, spacer_r = st.columns([0.5, 2, 2, 2, 0.5])
@@ -360,7 +360,7 @@ elif st.session_state.page == "Simulateur & Analyse":
 
     st.markdown("""
         <div class="hero-wrap" style="padding:28px 36px;">
-            <div class="hero-title" style="font-size: 2.8rem !important;">Simulateur temps réel</div>
+            <div class="hero-title" style="font-size: 2rem !important;">Simulateur temps réel</div>
             <div class="hero-subtitle" style="font-size: 1.5rem !important;">Ajustez les paramètres pour recalculer la fiabilité du système.</div>
         </div>
     """, unsafe_allow_html=True)
@@ -368,8 +368,24 @@ elif st.session_state.page == "Simulateur & Analyse":
     st.sidebar.header("Configuration système")
     st.sidebar.subheader("Composants électroniques")
     t_mission = st.sidebar.number_input("Durée de mission (h)", value=100.0, step=10.0)
-    lam_batt = st.sidebar.number_input("λ Batterie (h⁻¹)", value=0.0001, format="%.5f")
-    lam_carte = st.sidebar.number_input("λ Carte de vol (h⁻¹)", value=0.00005, format="%.5f")
+
+    # Lambda Batterie (Correction : pas de 0.00001, interdiction du zéro)
+    lam_batt = st.sidebar.number_input(
+        "λ Batterie (h⁻¹)", 
+        value=0.00010, 
+        min_value=0.00001, 
+        step=0.00001, 
+        format="%.5f"
+    )
+
+    # Lambda Carte de Vol (Correction : pas de 0.00001, interdiction du zéro)
+    lam_carte = st.sidebar.number_input(
+        "λ Carte de vol (h⁻¹)", 
+        value=0.00005, 
+        min_value=0.00001, 
+        step=0.00001, 
+        format="%.5f"
+    )
 
     st.sidebar.markdown("---")
     st.sidebar.subheader("Propulsion (Weibull k/n)")
@@ -425,7 +441,7 @@ elif st.session_state.page == "Simulateur & Analyse":
                 <div class="metric-card" style="border-top: 5px solid #6b4c6e;">
                     <div class="metric-label">Monte Carlo ({n_sims//1000}k)</div>
                     <div class="metric-value">{mc['r_mc'] * 100:.2f}%</div>
-                    <div style="margin-top:14px; font-weight:800; color:#6b4c6e; font-size:1.15rem;">Écart : {ecart:.3f}%</div>
+                    <div style="margin-top:14px; font-weight:800; color:#6b4c6e; font-size:1rem;">Écart : {ecart:.3f}%</div>
                 </div>
             """, unsafe_allow_html=True)
 
@@ -433,9 +449,9 @@ elif st.session_state.page == "Simulateur & Analyse":
         st.markdown("<h3 style='font-size:1.2rem;'>Origine des pannes (simulation)</h3>", unsafe_allow_html=True)
         p1, p2, p3 = st.columns(3)
         for col, label, val, color in [
-            (p1, "Batterie", mc['echec_batt'], "#991b1b"),
-            (p2, "Carte de vol", mc['echec_carte'], "#92400e"),
-            (p3, "Propulsion", mc['echec_prop'], "#1d3557"),
+            (p1, "Batterie", mc['echec_batt'], "#ee1d1d"),
+            (p2, "Carte de vol", mc['echec_carte'], "#f16b17"),
+            (p3, "Propulsion", mc['echec_prop'], "#b7fa1c"),
         ]:
             col.markdown(f"""
                 <div class="metric-card" style="border-top: 5px solid {color};">
@@ -445,7 +461,7 @@ elif st.session_state.page == "Simulateur & Analyse":
             """, unsafe_allow_html=True)
 
     with col_chart:
-        st.markdown("<h3 style='font-size:1.4rem;'>📈 Courbes de fiabilité R(t)</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='font-size:1.6rem;'>📈 Courbes de fiabilité R(t)</h3>", unsafe_allow_html=True)
         fig, ax = plt.subplots(figsize=(8, 5.2))
         t = np.linspace(0.1, max(150.0, t_mission * 1.5), 250)
         ax.plot(t, np.exp(-drone.lam_batt * t), "--", color="#991b1b", linewidth=2, label="Batterie")
@@ -466,8 +482,8 @@ elif st.session_state.page == "Comparaison & Sensibilité":
 
     st.markdown("""
         <div class="hero-wrap" style="padding:28px 36px;">
-            <div class="hero-title" style="font-size: 2.4rem !important;">Comparaison d'architectures & Sensibilité</div>
-            <div class="hero-subtitle" style="font-size: 1.25rem !important;">
+            <div class="hero-title" style="font-size: 2rem !important;">Comparaison d'architectures & Sensibilité</div>
+            <div class="hero-subtitle" style="font-size: 1.2rem !important;">
                 Comparez plusieurs stratégies de redondance k/n et étudiez l'impact des paramètres β et η
                 de la loi de Weibull sur la fiabilité du système de propulsion.
             </div>
@@ -480,7 +496,7 @@ elif st.session_state.page == "Comparaison & Sensibilité":
     eta_comp = st.sidebar.number_input("η nominal (h)", value=1000.0, step=50.0, key="eta_comp")
 
     # ---------- BLOC 1 : COMPARAISON D'ARCHITECTURES ----------
-    st.markdown("<h2 style='font-size:4rem;'>Comparaison des architectures de propulsion</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-size:3rem;'>Comparaison des architectures de propulsion</h2>", unsafe_allow_html=True)
 
     dc = DroneReliability(beta_moteur=beta_comp, eta_moteur=eta_comp)
     r_moteur = dc.r_weibull(t_comp)
@@ -533,7 +549,7 @@ elif st.session_state.page == "Comparaison & Sensibilité":
     st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
     # ---------- BLOC 2 : ANALYSE DE SENSIBILITE ----------
-    st.markdown("<h2 style='font-size:2rem;'>Analyse de sensibilité sur β et η</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-size:3rem;'>Analyse de sensibilité sur β et η</h2>", unsafe_allow_html=True)
 
     col_beta, col_eta = st.columns(2, gap="large")
 
@@ -571,7 +587,7 @@ elif st.session_state.page == "Comparaison & Sensibilité":
     dR_dbeta = (dc.r_weibull(t_comp, beta=beta_comp + d, eta=eta_comp) -
                 dc.r_weibull(t_comp, beta=beta_comp - d, eta=eta_comp)) / (2 * d)
     dR_deta = (dc.r_weibull(t_comp, beta=beta_comp, eta=eta_comp + 1) -
-               dc.r_weibull(t_comp, beta=beta_comp, eta=eta_comp - 1)) / 2
+                dc.r_weibull(t_comp, beta=beta_comp, eta=eta_comp - 1)) / 2
     S_beta = dR_dbeta * (beta_comp / R0)
     S_eta = dR_deta * (eta_comp / R0)
 
@@ -613,3 +629,5 @@ elif st.session_state.page == "Comparaison & Sensibilité":
             </p>
         </div>
     """, unsafe_allow_html=True)
+
+   
